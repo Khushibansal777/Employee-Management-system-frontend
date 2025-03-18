@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 
 const CreateTask = () => {
-  // Use State Instead of useRef for Task Data
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDate, setTaskDate] = useState("");
   const [assignTo, setAssignTo] = useState("");
@@ -19,11 +18,10 @@ const CreateTask = () => {
       !assignTo ||
       !taskCategory
     ) {
-      console.error("❌ All fields are required!");
+      alert("❌ All fields are required!");
       return;
     }
 
-    // Create Task Object (Instead of Using State Update)
     const newTask = {
       task_title: taskTitle.trim(),
       task_description: taskDescription.trim(),
@@ -35,33 +33,19 @@ const CreateTask = () => {
       failed: false,
     };
 
-    console.log("✅ New Task Created:", newTask);
+    let data = JSON.parse(localStorage.getItem("employees"));
 
-    // Get Employees From Local Storage
-    let data = JSON.parse(localStorage.getItem("employees")) || [];
-
-    let taskAssigned = false;
     data.forEach((elem) => {
       if (elem.firstname.trim() === assignTo.trim()) {
         console.log("Before Pushing:", elem.tasks);
-
         elem.tasks.push(newTask);
         elem.task_numbers.newtask += 1;
-        console.log("✅ Task Added:", newTask);
         console.log("Updated Employee:", elem);
-        taskAssigned = true;
       }
     });
 
-    if (!taskAssigned) {
-      console.error("❌ Employee Not Found!");
-      return;
-    }
-
     // Update Local Storage
     localStorage.setItem("employees", JSON.stringify(data));
-
-    // Reset Form Inputs
     setTaskTitle("");
     setTaskDate("");
     setAssignTo("");
