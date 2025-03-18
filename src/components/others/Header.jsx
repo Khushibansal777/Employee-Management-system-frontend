@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const Header = () => {
+const Header = (props) => {
   //console.log(data);
   // const [userName, setUserName] = useState("");
   // if (!data) {
@@ -11,7 +11,8 @@ const Header = () => {
   // }
   const logOutUser = () => {
     localStorage.setItem("loggedInUser", "");
-    window.location.reload();
+    props.changeUser("");
+    //window.location.reload();
   };
   return (
     <div className="flex items-end justify-between">
