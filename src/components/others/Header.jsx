@@ -2,12 +2,18 @@ import React from "react";
 import { useState } from "react";
 
 const Header = (props) => {
-  //console.log(data);
+  let userName;
+  if (props.user == "admin") {
+    userName = "Admin";
+  } else {
+    userName = props.data.firstname;
+  }
+
   // const [userName, setUserName] = useState("");
-  // if (!data) {
+  // if (!props.data.firstname) {
   //   setUserName("Admin");
   // } else {
-  //   setUserName(data.firstname);
+  //   setUserName(props.data.firstname);
   // }
   const logOutUser = () => {
     localStorage.setItem("loggedInUser", "");
@@ -18,7 +24,7 @@ const Header = (props) => {
     <div className="flex items-end justify-between">
       <h1 className="text-2xl font-medium">
         Hello <br />
-        <span className="text-3xl font-semibold"> userName✋</span>
+        <span className="text-3xl font-semibold"> {userName}✋</span>
       </h1>
       <button
         onClick={logOutUser}

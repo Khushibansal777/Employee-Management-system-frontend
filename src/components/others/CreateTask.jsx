@@ -1,12 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
-const CreateTask = () => {
+const CreateTask = ({ employees, setEmployees }) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDate, setTaskDate] = useState("");
   const [assignTo, setAssignTo] = useState("");
   const [taskCategory, setTaskCategory] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
-
+  // const [employees, setEmployees] = useState(() => {
+  //   return JSON.parse(localStorage.getItem("employees")) || [];
+  // });
+  const authData = useContext(AuthContext);
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -32,26 +36,56 @@ const CreateTask = () => {
       completed: false,
       failed: false,
     };
+    let updatedEmployees = employees.map((emp) => {
+      if (emp.firstname.trim() === assignTo.trim()) {
+        console.log("Employee from localStorage:", emp);
 
-    let data = JSON.parse(localStorage.getItem("employees"));
-
-    data.forEach((elem) => {
-      if (elem.firstname.trim() === assignTo.trim()) {
-        console.log("Before Pushing:", elem.tasks);
-        elem.tasks.push(newTask);
-        elem.task_numbers.newtask += 1;
-        console.log("Updated Employee:", elem);
+        return {
+          ...emp,
+          tasks: [...emp.tasks, newTask],
+          task_numbers: {
+            ...emp.task_numbers,
+            newtask: emp.task_numbers.newtask + 1,
+          },
+        };
       }
+      return emp;
     });
+    console.log("Updated Employees List:", updatedEmployees);
+
+    setEmployees(updatedEmployees);
+
+    // localStorage.setItem("employees", JSON.stringify(employees));
+
+    // let data = JSON.parse(localStorage.getItem("employees"));
+
+    // data.forEach((elem) => {
+    //   if (elem.firstname.trim() === assignTo.trim()) {
+    //     console.log("Before Pushing:", elem.tasks);
+    //     elem.tasks.push(newTask);
+    //     elem.task_numbers.newtask += 1;
+    //     console.log("Updated Employee:", elem);
+    //   }
+    // });
 
     // Update Local Storage
-    localStorage.setItem("employees", JSON.stringify(data));
+    authData.updateUserData({
+      ...authData.userData,
+      employees: updatedEmployees,
+    });
+
+    // localStorage.setItem("employees", JSON.stringify(data));
     setTaskTitle("");
     setTaskDate("");
     setAssignTo("");
     setTaskCategory("");
     setTaskDescription("");
   };
+  useEffect(() => {
+    console.log("craete task m hu");
+    localStorage.setItem("employees", JSON.stringify(employees));
+    console.log("localStorage Updated:", employees);
+  }, [employees]);
 
   return (
     <div className="p-5 bg-[#1c1c1c] mt-7 rounded">

@@ -3,9 +3,14 @@ import Header from "../others/Header";
 import TaskListNumbers from "../others/TaskListNumbers";
 import TaskList from "../TaskList/TaskList";
 const EmployeeDashboard = (props) => {
+  // console.log("employee jo logged in hai uska dtaa h", props.data.firstname);
   return (
     <div className="p-10  bg-[#1c1c1c] h-screen">
-      <Header changeUser={props.changeUser} data={props.data} />
+      <Header
+        changeUser={props.changeUser}
+        data={props.data}
+        user={props.user}
+      />
       <TaskListNumbers data={props.data} />
       <TaskList data={props.data} />
     </div>
