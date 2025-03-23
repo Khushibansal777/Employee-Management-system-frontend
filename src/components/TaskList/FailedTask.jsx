@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 
-const FailedTask = ({ data, task_numbers }) => {
+const FailedTask = ({ data, task_numbers, userName }) => {
   const [isFailed, setIsFailed] = useState(false);
   const authData = useContext(AuthContext);
   let employees = authData.userData.employees;
@@ -25,12 +25,12 @@ const FailedTask = ({ data, task_numbers }) => {
           ...emp,
           tasks: emp.tasks.map((task) =>
             task.task_title === data.task_title
-              ? { ...task, completed: true }
+              ? { ...task, failed: true }
               : task
           ),
           task_numbers: {
             ...emp.task_numbers,
-            completed: emp.task_numbers.completed + 1,
+            failed: emp.task_numbers.failed + 1,
           },
         };
       }
