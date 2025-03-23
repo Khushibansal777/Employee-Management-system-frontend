@@ -17,6 +17,7 @@ const App = () => {
       setUser(userData.role);
       setLoggedInUserData(userData.data);
     }
+    //console.log("appp m h ");
   }, []);
 
   const handleLogin = (email, password) => {

@@ -17,7 +17,7 @@ const CompleteTask = ({ data, task_numbers, userName }) => {
   };
   const handleCompleteClick = () => {
     setIsCompleted(true); // Disable button after click
-    task_numbers.completed += 1;
+    //task_numbers.completed += 1;
     //console.log(task_numbers);
     const updatedEmployees = employees.map((emp) => {
       if (emp.firstname === userName) {

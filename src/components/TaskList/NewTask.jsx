@@ -19,7 +19,8 @@ const NewTask = ({ data, task_numbers, userName }) => {
   };
   const handleAcceptClick = () => {
     setIsAccepted(true); // Disable button after click
-    task_numbers.active += 1;
+    //task_numbers.active += 1;
+    //task_numbers.newtask -= 1;
     // console.log(task_numbers);
     const updatedEmployees = employees.map((emp) => {
       if (emp.firstname === userName) {
@@ -27,12 +28,14 @@ const NewTask = ({ data, task_numbers, userName }) => {
           ...emp,
           tasks: emp.tasks.map((task) =>
             task.task_title === data.task_title
-              ? { ...task, active: true }
+              ? { ...task, active: true, newtask: false }
               : task
           ),
           task_numbers: {
             ...emp.task_numbers,
             active: emp.task_numbers.active + 1,
+            newtask: Math.max(emp.task_numbers.newtask - 1, 0),
+            //newtask: emp.task_numbers.newtask - 1,
           },
         };
       }

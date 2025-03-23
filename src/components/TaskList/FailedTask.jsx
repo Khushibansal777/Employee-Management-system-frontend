@@ -13,11 +13,11 @@ const FailedTask = ({ data, task_numbers, userName }) => {
       employees: updatedEmployees,
     }));
     localStorage.setItem("employees", JSON.stringify(updatedEmployees));
-    //console.log(updatedEmployees);
+    //console.log("local storage aur context update krdia");
   };
   const handleFailedClick = () => {
     setIsFailed(true); // Disable button after click
-    task_numbers.failed += 1;
+    //task_numbers.failed += 1;
     //console.log(task_numbers);
     const updatedEmployees = employees.map((emp) => {
       if (emp.firstname === userName) {

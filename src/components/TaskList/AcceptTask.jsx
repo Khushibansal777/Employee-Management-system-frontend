@@ -21,7 +21,7 @@ const AcceptTask = ({ data, task_numbers, userName }) => {
 
   const handleFailedClick = () => {
     setIsFailed(true); // Disable button after click
-    task_numbers.failed += 1;
+    //task_numbers.failed += 1;
 
     //console.log(task_numbers);
     const updatedEmployees = employees.map((emp) => {
