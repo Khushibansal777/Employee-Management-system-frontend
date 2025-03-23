@@ -3,7 +3,8 @@ import AcceptTask from "./AcceptTask";
 import NewTask from "./NewTask";
 import CompleteTask from "./CompleteTask";
 import FailedTask from "./FailedTask";
-const TaskList = ({ data }) => {
+const TaskList = ({ data, authData }) => {
+  //console.log(authData);
   //console.log(data);
   return (
     <div
@@ -13,20 +14,42 @@ const TaskList = ({ data }) => {
       {data.tasks.map((e, id) => {
         while (e.active) {
           return (
-            <AcceptTask key={id} data={e} task_numbers={data.task_numbers} />
+            <AcceptTask
+              key={id}
+              data={e}
+              task_numbers={data.task_numbers}
+              userName={data.firstname}
+            />
           );
         }
         while (e.newtask) {
-          return <NewTask key={id} data={e} task_numbers={data.task_numbers} />;
+          return (
+            <NewTask
+              key={id}
+              data={e}
+              task_numbers={data.task_numbers}
+              userName={data.firstname}
+            />
+          );
         }
         while (e.completed) {
           return (
-            <CompleteTask key={id} data={e} task_numbers={data.task_numbers} />
+            <CompleteTask
+              key={id}
+              data={e}
+              task_numbers={data.task_numbers}
+              userName={data.firstname}
+            />
           );
         }
         while (e.failed) {
           return (
-            <FailedTask key={id} data={e} task_numbers={data.task_numbers} />
+            <FailedTask
+              key={id}
+              data={e}
+              task_numbers={data.task_numbers}
+              userName={data.firstname}
+            />
           );
         }
       })}

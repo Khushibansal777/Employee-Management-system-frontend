@@ -7,9 +7,15 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     setLocalStorage();
     const { employees, admin } = getLocalStorage();
-    console.log("ye data auth provider m h", employees);
-    setUserData({ employees, admin });
+    //console.log("ye data auth provider m h", employees);
+    // setUserData({ employees, admin });
+    setUserData((prevUserData) => ({
+      ...prevUserData, // Preserve other data
+      employees,
+      admin,
+    }));
   }, []);
+
   const updateUserData = (newData) => {
     setUserData(newData);
     setLocalStorage(newData); // Ensure local storage is updated

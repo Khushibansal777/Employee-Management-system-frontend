@@ -1,11 +1,46 @@
 import React from "react";
-import { useState } from "react";
-const NewTask = ({ data, task_numbers }) => {
+import { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthProvider";
+
+const NewTask = ({ data, task_numbers, userName }) => {
   const [isAccepted, setIsAccepted] = useState(false);
+
+  const authData = useContext(AuthContext);
+  let employees = authData.userData.employees;
+  let setUserData = authData.updateUserData;
+
+  const updateLocalStorageAndContext = (updatedEmployees) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      employees: updatedEmployees,
+    }));
+    localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+    //console.log(updatedEmployees);
+  };
   const handleAcceptClick = () => {
     setIsAccepted(true); // Disable button after click
     task_numbers.active += 1;
-    console.log(task_numbers);
+    // console.log(task_numbers);
+    const updatedEmployees = employees.map((emp) => {
+      if (emp.firstname === userName) {
+        return {
+          ...emp,
+          tasks: emp.tasks.map((task) =>
+            task.task_title === data.task_title
+              ? { ...task, active: true }
+              : task
+          ),
+          task_numbers: {
+            ...emp.task_numbers,
+            active: emp.task_numbers.active + 1,
+          },
+        };
+      }
+      return emp;
+    });
+
+    updateLocalStorageAndContext(updatedEmployees);
+    authData.userData.employees = JSON.parse(localStorage.getItem("employees"));
   };
   return (
     <div className="flex-shrink-0 bg-green-400 h-full w-[350px] rounded-xl p-5">

@@ -11,9 +11,10 @@ const EmployeeDashboard = (props) => {
         user={props.user}
       />
       <TaskListNumbers data={props.data} />
-      <TaskList data={props.data} />
+      <TaskList data={props.data} authData={props.authData} />
     </div>
   );
 };
 
 export default EmployeeDashboard;
+// console.log("app se jo uthaya hai ", props.authData.employees);

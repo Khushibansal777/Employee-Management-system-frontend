@@ -57,6 +57,7 @@ const App = () => {
         />
       ) : user == "employee" ? (
         <EmployeeDashboard
+          authData={authData.userData.employees}
           data={loggedInUserData}
           changeUser={setUser}
           user={user}
