@@ -15,7 +15,7 @@ const NewTask = ({ data, task_numbers, userName }) => {
       employees: updatedEmployees,
     }));
     localStorage.setItem("employees", JSON.stringify(updatedEmployees));
-    //console.log(updatedEmployees);
+    console.log(updatedEmployees);
   };
   const handleAcceptClick = () => {
     setIsAccepted(true); // Disable button after click

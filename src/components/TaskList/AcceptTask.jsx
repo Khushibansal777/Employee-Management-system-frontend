@@ -47,7 +47,7 @@ const AcceptTask = ({ data, task_numbers, userName }) => {
   };
   const handleCompletedClick = () => {
     setIsCompleted(true); // Disable button after click
-    task_numbers.completed += 1;
+    //task_numbers.completed += 1;
 
     // console.log(task_numbers);
     const updatedEmployees = employees.map((emp) => {
@@ -83,28 +83,33 @@ const AcceptTask = ({ data, task_numbers, userName }) => {
       <h2 className="text-2xl font-semibold mt-5"> {data.task_title}</h2>
       <p className="text-sm mt-2">{data.task_description}</p>
       <div className="flex justify-between mt-4">
-        <button
-          className={`px-2 py-1 text-sm ${
-            isCompleted
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-500 hover:bg-green-700"
-          }`}
-          onClick={handleCompletedClick}
-          disabled={isCompleted} // Disable button
-        >
-          {isCompleted ? "Completed" : "Mark as Completed"}
-        </button>
-        <button
-          className={`px-2 py-1 text-sm ${
-            isFailed
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-red-500 hover:bg-red-700"
-          }`}
-          onClick={handleFailedClick}
-          disabled={isFailed} // Disable button
-        >
-          {isFailed ? "Failed" : "Mark as Failed"}
-        </button>
+        {!isFailed && ( // Hide "Mark as Completed" if task is failed
+          <button
+            className={`px-2 py-1 text-sm ${
+              isCompleted
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-green-500 hover:bg-green-700"
+            }`}
+            onClick={handleCompletedClick}
+            disabled={isCompleted}
+          >
+            {isCompleted ? "Completed" : "Mark as Completed"}
+          </button>
+        )}
+
+        {!isCompleted && ( // Hide "Mark as Failed" if task is completed
+          <button
+            className={`px-2 py-1 text-sm ${
+              isFailed
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-red-500 hover:bg-red-700"
+            }`}
+            onClick={handleFailedClick}
+            disabled={isFailed}
+          >
+            {isFailed ? "Failed" : "Mark as Failed"}
+          </button>
+        )}
       </div>
     </div>
   );
