@@ -59,7 +59,7 @@ const CreateTask = ({ employees, setEmployees }) => {
       ...authData.userData,
       employees: updatedEmployees,
     });
-    console.log("create task context update krdi");
+    
     // localStorage.setItem("employees", JSON.stringify(data));
     setTaskTitle("");
     setTaskDate("");
