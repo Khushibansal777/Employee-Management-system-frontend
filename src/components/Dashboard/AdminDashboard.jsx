@@ -5,7 +5,7 @@ import AllTask from "../others/AllTask";
 import { useState, useEffect } from "react";
 
 const AdminDashboard = (props) => {
-  // console.log("app se jo uthaya hai ", props.authData.employees);
+  // console.log("Taken from app", props.authData.employees);
   const [employees, setEmployees] = useState(
     JSON.parse(localStorage.getItem("employees"))
   );
